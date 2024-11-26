@@ -1,114 +1,137 @@
-Introducción a la Web y Protocolo HTTP
+Resumen de Teoría sobre Introducción a la Web y Protocolo HTTP
+
+
+---
 
 Arquitectura Cliente-Servidor
 
-En la arquitectura cliente-servidor, un cliente solicita un servicio a un servidor, que responde a la solicitud. En desarrollo web, los clientes (navegadores) solicitan páginas web a un servidor, y este responde con el contenido solicitado. Esta arquitectura permite que un servidor multitarea atienda a varios clientes simultáneamente.
+Cliente-Servidor: Arquitectura donde el cliente solicita recursos al servidor, que responde. Permite que varios clientes usen un mismo servidor.
 
-Protocolos en la Web
+Modelo en 3 capas: Extiende el modelo cliente-servidor para detallar las tecnologías involucradas en cada capa (cliente, servidor, y bases de datos o almacenamiento).
 
-HTTP/HTTPS: Protocolo de transferencia de hipertexto. HTTPS es la versión segura usando SSL/TLS.
 
-Telnet/SSH: Protocolos de acceso remoto, SSH reemplaza a Telnet con cifrado.
+Protocolos Importantes para la Web
 
-FTP/SFTP: Protocolos para transferencia de archivos; SFTP asegura la transferencia mediante SSH.
+HTTP: Protocolo básico de transferencia de hipertexto para cargar páginas web. Es sin estado.
+
+HTTPS: HTTP con seguridad (cifrado TLS o SSL).
+
+Otros Protocolos:
+
+Telnet: Conexión remota de texto, sustituido por SSH (seguro).
+
+SCP: Transferencia de archivos segura, usando SSH.
+
+FTP: Transferencia de archivos no segura. SFTP añade cifrado.
+
 
 
 Protocolo HTTP
 
-HTTP es un protocolo sin estado que permite transferir páginas web. Cada solicitud HTTP es independiente, lo que significa que el servidor no mantiene la información de cada cliente a menos que se implementen cookies o sesiones.
+Funcionamiento: El navegador envía una petición HTTP y el servidor responde con el recurso solicitado.
+
+Sin Estado: No guarda información de sesiones, cada petición es independiente.
+
+Sesiones y Cookies: Son técnicas para que el servidor "recuerde" al cliente usando almacenamiento en cookies.
+
 
 Ejemplo de Petición y Respuesta HTTP
 
-Petición HTTP:
-
-GET /index.html HTTP/1.1
-Host: www.misitio.com
-User-Agent: Mozilla/5.0
-
-Respuesta HTTP:
-
-HTTP/1.1 200 OK
-Content-Type: text/html; charset=utf-8
-
-<html>...</html>
-
-HTTPS y Seguridad SSL/TLS
-
-SSL/TLS añade una capa de seguridad al protocolo HTTP, creando HTTPS. HTTPS asegura la autenticación y privacidad en la web y evita ataques como "Man in the Middle".
-
-Componentes de la Web
-
-La web es una estructura interconectada de páginas HTML, CSS, imágenes, etc., obtenidas mediante HTTP. Los recursos son servidos por un servidor web, y pueden incluir:
-
-Código de visualización: HTML, CSS, imágenes.
-
-Código en el cliente: JavaScript ejecutado en el navegador.
-
-Código en el servidor: Lógica de la aplicación en el servidor.
+1. Petición (Request): Incluye un método (ej., GET), ruta, versión del protocolo, y encabezados.
 
 
-Herramientas de Desarrollo en el Navegador
-
-Los navegadores incluyen herramientas de desarrollo, como Chrome DevTools, que permite analizar las peticiones y respuestas HTTP.
-
-Características y Ventajas de HTTP
-
-Simplicidad: Es texto plano, fácil de usar y entender.
-
-Sin estado: Las peticiones son independientes, facilitando la escalabilidad.
-
-Ventajas: Soporte para caché, autenticación, proxys, sesiones y manejo de formatos de contenido.
+2. Respuesta (Response): Incluye estado (200 OK, 404 Not Found, etc.), encabezados (como Content-Type) y el contenido solicitado.
 
 
-Formato de una Petición y Respuesta HTTP
 
-Las cabeceras en las peticiones y respuestas HTTP ayudan a gestionar el contenido y la comunicación.
+Características de HTTP
 
-Cabeceras de petición: Accept, Accept-Language, Host, Content-Type.
+Sencillo y Extensible: Usa texto plano y puede incluir metadatos personalizados.
 
-Cabeceras de respuesta: Content-Type, Content-Language, Content-Length, Cache-Control.
+Ventajas:
 
+Cache: Mejora la velocidad.
 
-Códigos de Estado HTTP
+Autenticación y Sesiones: Mediante cookies para mantener el estado.
 
-200-299: Éxito.
+Proxys: Intermediarios que facilitan la conexión entre cliente y servidor.
 
-300-399: Redirección.
-
-400-499: Error del cliente.
-
-500-599: Error del servidor.
 
 
 Métodos HTTP
 
-GET: Obtiene datos.
+GET: Solicita datos.
 
-POST: Crea datos.
+POST: Envía nuevos datos.
 
-PUT: Actualiza datos.
+PUT: Actualiza datos existentes.
 
 DELETE: Elimina datos.
 
 
-REST y JSON en HTTP
-
-REST (Representational State Transfer) usa las características de HTTP, especialmente en servicios web. En REST, las operaciones CRUD (Create, Read, Update, Delete) se asignan a métodos HTTP (POST, GET, PUT, DELETE) y normalmente usan JSON para la transferencia de datos.
-
-Ejemplos de Comandos curl
+Ejemplos de Peticiones cURL
 
 1. GET: curl -X GET https://jsonplaceholder.typicode.com/posts/1
 
 
-2. POST: curl -X POST https://jsonplaceholder.typicode.com/posts -d '{"title": "foo", "body": "bar"}'
+2. POST: curl -X POST https://jsonplaceholder.typicode.com/posts -d '{"title": "foo"}'
 
 
-3. PUT: curl -X PUT https://jsonplaceholder.typicode.com/posts/1 -d '{"title": "updated title"}'
+3. PUT: curl -X PUT https://jsonplaceholder.typicode.com/posts/1 -d '{"title": "updated"}'
 
 
 4. DELETE: curl -X DELETE https://jsonplaceholder.typicode.com/posts/1
 
 
-5. Autenticación: curl -u usuario:contraseña https://ejemplo.com/protegido
+
+REST (REpresentational State Transfer)
+
+REST: Aprovecha HTTP para desarrollar aplicaciones web usando JSON como formato de datos común.
+
+Operaciones CRUD: Mapear operaciones HTTP a funciones de base de datos (ej., GET para leer, POST para crear).
 
 
+Cabeceras HTTP
+
+Cabeceras de Petición:
+
+Accept: Formato deseado de respuesta (JSON, XML).
+
+Host: Dominio de la petición.
+
+Content-Type: Formato de los datos enviados.
+
+
+Cabeceras de Respuesta:
+
+Content-Type: Tipo de datos devueltos.
+
+Cache-Control: Indica el tiempo de cacheo.
+
+
+
+Estados HTTP
+
+200-299: Éxito (ej., 200 OK).
+
+400-499: Error del cliente (ej., 404 Not Found).
+
+500-599: Error del servidor.
+
+
+HTTPS y Seguridad
+
+HTTPS: Añade SSL/TLS a HTTP para la encriptación y autenticación del servidor.
+
+Seguridad: Protege la integridad de los datos y previene ataques como "Man in the Middle".
+
+
+Herramientas de Depuración
+
+Chrome DevTools: Herramienta para inspeccionar peticiones y respuestas HTTP en el navegador (F12 -> Network).
+
+
+
+---
+
+Este resumen cubre los conceptos básicos de HTTP y sus aplicaciones en la web, resaltando protocolos, métodos, encabezados y principios clave de seguridad en HTTPS.
